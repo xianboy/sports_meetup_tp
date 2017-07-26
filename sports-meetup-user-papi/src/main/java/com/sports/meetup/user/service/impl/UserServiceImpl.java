@@ -1,9 +1,13 @@
 package com.sports.meetup.user.service.impl;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -29,9 +33,6 @@ public class UserServiceImpl implements IUserService{
 	private User dbUser;
 	
 	@Autowired
-	ResponseEntity<CustomResponse> response;
-	
-	@Autowired
 	private CustomResponse customResponse;
 	
 	
@@ -44,17 +45,29 @@ public class UserServiceImpl implements IUserService{
 	 * @return
 	 */
 	public ResponseEntity<?> login(User user) {
-		HttpEntity<User> requestEntity = new HttpEntity<>(user);
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<User> requestEntity = new HttpEntity<>(user, headers);
+		String url = config.getUrl()+"/"+user.getPhoneNumber();
 		//1.call sapi to get userByPhoneNumber from 
-		ResponseEntity<User> responseEntity = this.restTemplate.exchange(config.getUrl(), HttpMethod.GET, requestEntity, User.class, user.getPhoneNumber());
-		if(response.getStatusCode().equals(HttpStatus.OK)) {
-			dbUser = responseEntity.getBody();
-		}
+		ResponseEntity<User> responseEntity = this.restTemplate.exchange(url, HttpMethod.GET, requestEntity, User.class);
 		
+		ResponseEntity<CustomResponse> response = null;
+		if(responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+			dbUser = responseEntity.getBody();
+		}else {
+			customResponse.setResponseCode("LE003");
+			customResponse.setMessage("Intenel Server Error.");
+			return new ResponseEntity<CustomResponse>(customResponse, HttpStatus.OK);
+		}
+		if(dbUser==null) {
+			customResponse.setResponseCode("LE001");
+			customResponse.setMessage("用户 "+user.getPhoneNumber() +" 不存在.");
+			return new ResponseEntity<CustomResponse>(customResponse, HttpStatus.OK);
+		}
 		if("Y".equals(UserUtil.checkLoginUser(user, dbUser))) {
 			response = new ResponseEntity<CustomResponse>(customResponse.responseHandler(dbUser), HttpStatus.OK);
 		}
-		
 		return response;
 	}
 
