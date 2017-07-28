@@ -1,19 +1,23 @@
-package com.sports.meetup.user.domain;
+package com.newlife.meetup.domain;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.stereotype.Component;
 
-@Component
+@Entity
 public class User {
 	
+	@Id
+	@GeneratedValue
 	private Long userId;
 	
-	@Length(min=11, max=11, message="请正确输入手机号.")
+	@Length(min=11, max=11, message="请输入正确的手机号.")
 	private String phoneNumber;
 	
-/*	@NotBlank(message="请输入正确的验证码.")
-	@Length(min=6,max=6, message="请输入正确的验证码.")*/
+	@NotBlank(message="验证码不能为空.")
 	private String verificationCode;
 	
 	@NotBlank(message="密码不能为空.")

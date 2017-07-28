@@ -7,15 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-public class SportsMeetupUserPapiApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(SportsMeetupUserPapiApplication.class, args);
-	}
+public class MeetupUserPapiApplication {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 	   // Do any additional configuration here
 	   return builder.build();
+	}
+	
+	public static void main(String[] args) {
+		SpringApplication.run(MeetupUserPapiApplication.class, args);
 	}
 }
