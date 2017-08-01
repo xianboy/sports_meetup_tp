@@ -10,6 +10,6 @@ public interface ISendSmsService {
 
 	ResponseUtil getVerificationCode(String phoneNumber);
 
-	ResponseUtil getVerificationCode(String phoneNumber, String flag) throws ClientException;
+	ResponseUtil getVerificationCode(String phoneNumber, int flag) throws ClientException;
 	
 }

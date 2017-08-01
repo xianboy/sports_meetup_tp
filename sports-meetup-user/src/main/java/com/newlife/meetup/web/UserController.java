@@ -47,7 +47,7 @@ public class UserController {
 	public ResponseUtil addUser(@RequestBody @Validated User user, BindingResult bindResult) {
 		if(bindResult.hasErrors()) {
 			responseUtil.setMessage(bindResult.getAllErrors().get(0).getDefaultMessage());
-			responseUtil.setResponseCode("RE002");
+			responseUtil.setResponseCode("BAD_REQUEST_400");
 			return responseUtil;
 		}
 		return this.userService.addUser(user);
@@ -58,7 +58,7 @@ public class UserController {
 	public ResponseUtil updatePassword(@RequestBody @Validated User user, BindingResult bindResult) {
 		if(bindResult.hasErrors()) {
 			responseUtil.setMessage(bindResult.getAllErrors().get(0).getDefaultMessage());
-			responseUtil.setResponseCode("RE002");
+			responseUtil.setResponseCode("BAD_REQUEST_400");
 			return responseUtil;
 		}
 		return this.userService.updatePassword(user);

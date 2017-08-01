@@ -58,14 +58,14 @@ public class UserServiceImpl implements IUserService{
 		dbUser = findUserByPhoneNumber(user.getPhoneNumber());
 		if(dbUser==null) {
 			LOG.error("======== 登录时, 用户不存在 ========");
-			throw new LoginException(ConstantFields.getLoginError501Code(),ConstantFields.getLoginError501Msg());
+			throw new LoginException(ConstantFields.getUserError501Code(),ConstantFields.getUserError501Msg());
 		}
 		if("Y".equals(UserUtil.checkLoginUser(user, dbUser))) {
 			response = new ResponseEntity<ApiDefaultResponse>(
 					new ApiDefaultResponse(ConstantFields.getSuccessResponseCode(), ConstantFields.getSuccessResponseMsg(), dbUser), HttpStatus.OK);
 		}else {
 			LOG.error("======== 登录时, 密码错误 ========");
-			throw new LoginException(ConstantFields.getLoginError502Code(), ConstantFields.getLoginError502Msg());
+			throw new LoginException(ConstantFields.getUserError502Code(), ConstantFields.getUserError502Msg());
 		}
 		
 		if(LOG.isDebugEnabled()) {

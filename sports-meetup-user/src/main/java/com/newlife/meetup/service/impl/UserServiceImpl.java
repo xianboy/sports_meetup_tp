@@ -14,6 +14,7 @@ import com.newlife.meetup.domain.User;
 import com.newlife.meetup.repository.CheckCodeRepository;
 import com.newlife.meetup.repository.UserJpaRepository;
 import com.newlife.meetup.service.IUserService;
+import com.newlife.meetup.util.EncryptionUtil;
 import com.newlife.meetup.util.ResponseUtil;
 
 @Service
@@ -62,8 +63,8 @@ public class UserServiceImpl implements IUserService {
 	public ResponseUtil addUser(User user) {
 		String isUsed = checkPhoneNumber(user.getPhoneNumber());
 		 if(isUsed.equals("Y")) {
-			 responseUtil.setResponseCode("RE001");
-			 responseUtil.setMessage("账户已经存在！");
+			 responseUtil.setResponseCode("USER_ERROR_503");
+			 responseUtil.setMessage("用户已存在.");
 			 return responseUtil;
 		 }
 //		 2 校验用户验证码
@@ -71,12 +72,13 @@ public class UserServiceImpl implements IUserService {
 		 if(passed.equals("N")) {
 			 //跟新checkCode数据以用过
 			 checkCodeRepository.saveAndFlush(checkCode);
-			 responseUtil.setResponseCode("SS001");
-			 responseUtil.setMessage("验证码已失效, 请重试获取验证码.");
+			 responseUtil.setResponseCode("USER_ERROR_505");
+			 responseUtil.setMessage("验证码已失效,请重新获取.");
 			 return responseUtil;
 		 }
 		try {
 			if(isUsed.equals("N")&&passed.equals("Y")) {
+				user.setPassword(EncryptionUtil.getEncryptString(user.getPassword()));
 				this.userJpaRepository.save(user);
 				checkCode.setIsUsed(true);
 				checkCode.setUsingAt(new Timestamp(System.currentTimeMillis()));
@@ -105,32 +107,32 @@ public class UserServiceImpl implements IUserService {
 		 List<User> users = this.userJpaRepository.findUserByPhoneNumber(user.getPhoneNumber());
 		 if(users.size()==0) {
 			 LOG.error("========= 用户未注册 ========");
-			 responseUtil.setResponseCode("RE001");
-			 responseUtil.setMessage("用户未注册！");
+			 responseUtil.setResponseCode("USER_ERROR_501");
+			 responseUtil.setMessage("用户不存在,请注册.");
 			 return responseUtil;
 		 }
 //		1. 校验用户是否存在
 		String isUsed = checkPhoneNumber(user.getPhoneNumber());
 		 if(isUsed.equals("N")) {
 			 LOG.error("========= 用户未注册 ========");
-			 responseUtil.setResponseCode("RE001");
-			 responseUtil.setMessage("用户未注册！");
+			 responseUtil.setResponseCode("USER_ERROR_501");
+			 responseUtil.setMessage("用户不存在,请注册.");
 			 return responseUtil;
 		 }
 
 //		 校验密码
-		 if(user.getPassword().equals(users.get(0).getPassword())) {
+		 if(EncryptionUtil.getEncryptString(user.getPassword()).equals(users.get(0).getPassword())) {
 			 LOG.error("密码和旧密码重复.");
-			 responseUtil.setResponseCode("SS001");
-			 responseUtil.setMessage("新密码不能和旧密码重复.");
+			 responseUtil.setResponseCode("USER_ERROR_506");
+			 responseUtil.setMessage("新旧密码不能相同.");
 			 return responseUtil;
 		 }
 //		 2.校验验证码
 		 String passed = checkVerificationCode(user);
 		 if(passed.equals("N")) {
 			 //跟新checkCode数据以用过
-			 responseUtil.setResponseCode("SS001");
-			 responseUtil.setMessage("验证码已失效, 请重试获取验证码.");
+			 responseUtil.setResponseCode("USER_ERROR_505");
+			 responseUtil.setMessage("验证码已失效,请重新获取.");
 			 return responseUtil;
 		 }
 		 
@@ -139,7 +141,7 @@ public class UserServiceImpl implements IUserService {
 			this.userJpaRepository.delete(users.get(0));
 			this.userJpaRepository.save(user);
 					responseUtil.setResponseCode("000");
-					responseUtil.setMessage("密码已重置！");
+					responseUtil.setMessage("请求成功!");
 			}
 		return responseUtil;
 	}
@@ -160,7 +162,7 @@ public class UserServiceImpl implements IUserService {
 				if(checkCode.getExpireAt().before(new Timestamp(System.currentTimeMillis()))) {
 					return result;
 				}
-				if (user.getVerificationCode().equals(verificationCode)) {
+				if (EncryptionUtil.getEncryptString(user.getVerificationCode()).equals(verificationCode)) {
 					checkCode.setUsingAt(new Timestamp(System.currentTimeMillis()));
 					checkCode.setIsUsed(true);
 					checkCodeRepository.saveAndFlush(checkCode);

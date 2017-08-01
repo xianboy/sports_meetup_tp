@@ -1,9 +1,19 @@
-package com.newlife.meetup.util;
+package com.sports.meetup.user.utils;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResponseUtil {	
+public class CustomResponse {
+	private static final String SUCCESS_CODE = "OK";
+	private static final String SUCCESS_MESSAGE = "SUCCESS";
+	
+	public CustomResponse responseHandler(Object obj) {
+		CustomResponse response = new CustomResponse();
+		response.setResponseCode(SUCCESS_CODE);
+		response.setMessage(SUCCESS_MESSAGE);
+		response.setResponseBody(obj);
+		return response;
+	}
 	
 	private String responseCode;
 	
@@ -27,7 +37,6 @@ public class ResponseUtil {
 		this.message = message;
 	}
 
-
 	public Object getResponseBody() {
 		return responseBody;
 	}
@@ -35,5 +44,4 @@ public class ResponseUtil {
 	public void setResponseBody(Object responseBody) {
 		this.responseBody = responseBody;
 	}
-	
 }
