@@ -1,0 +1,4 @@
+sapi:
+  config: 
+    findUserByPhoneNumberUrl: http://localhost:8082/sports-meetup-sapi/users/getUser/{phoneNumbre}
+  
