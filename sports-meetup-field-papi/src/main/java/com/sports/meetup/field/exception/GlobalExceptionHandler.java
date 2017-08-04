@@ -1,4 +1,4 @@
-package com.sports.meetup.user.exception;
+package com.sports.meetup.field.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;

@@ -1,4 +1,4 @@
-package com.sports.meetup.field.domain;
+/*package com.sports.meetup.field.domain;
 
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -25,3 +25,4 @@ public class SportFieldRequest {
 		private Boolean isApproved;
 		
 }
+*/

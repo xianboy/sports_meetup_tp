@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sports.common.constant.ConstantFields;
 import com.sports.common.domain.ApiDefaultResponse;
-import com.sports.common.exception.LoginException;
+import com.sports.common.exception.UserException;
 import com.sports.meetup.user.config.SpringConfig;
 import com.sports.meetup.user.domain.User;
 import com.sports.meetup.user.service.IUserService;
@@ -49,7 +49,7 @@ public class UserServiceImpl implements IUserService{
 	 * @throws Exception 
 	 * @throws UserNotExistException 
 	 */
-	public ResponseEntity<?> login(User user) throws LoginException {
+	public ResponseEntity<?> login(User user) throws UserException {
 		if(LOG.isDebugEnabled()) {
 			LOG.debug("======== enter class {} to call login method ========", UserServiceImpl.CLASS);
 		}
@@ -58,14 +58,14 @@ public class UserServiceImpl implements IUserService{
 		dbUser = findUserByPhoneNumber(user.getPhoneNumber());
 		if(dbUser==null) {
 			LOG.error("======== 登录时, 用户不存在 ========");
-			throw new LoginException(ConstantFields.getUserError501Code(),ConstantFields.getUserError501Msg());
+			throw new UserException(ConstantFields.getUserError501Code(),ConstantFields.getUserError501Msg());
 		}
 		if("Y".equals(UserUtil.checkLoginUser(user, dbUser))) {
 			response = new ResponseEntity<ApiDefaultResponse>(
 					new ApiDefaultResponse(ConstantFields.getSuccessResponseCode(), ConstantFields.getSuccessResponseMsg(), dbUser), HttpStatus.OK);
 		}else {
 			LOG.error("======== 登录时, 密码错误 ========");
-			throw new LoginException(ConstantFields.getUserError502Code(), ConstantFields.getUserError502Msg());
+			throw new UserException(ConstantFields.getUserError502Code(), ConstantFields.getUserError502Msg());
 		}
 		
 		if(LOG.isDebugEnabled()) {

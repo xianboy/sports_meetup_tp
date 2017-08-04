@@ -10,17 +10,17 @@ import com.sports.meetup.field.service.ISportFieldService;
 @Service
 public class SportFieldServiceImpl implements ISportFieldService {
 
-
 	@Autowired
 	private SportFieldRepository sportFieldRepository; 
-
-	@Autowired
-	private SportField sportFeld;
 	
 	@Override
 	public SportField saveSportField(SportField sportField) {
-		this.sportFeld = this.sportFieldRepository.save(sportField);
-		return sportFeld;
+		return this.sportFieldRepository.save(sportField);
+	}
+
+	@Override
+	public void getNearbySportFields(Double longitude, Double latitude) {
+		
 	}
 
 }

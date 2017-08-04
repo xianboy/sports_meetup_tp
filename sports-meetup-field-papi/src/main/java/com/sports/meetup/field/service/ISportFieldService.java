@@ -6,5 +6,7 @@ import com.sports.common.domain.SportField;
 public interface ISportFieldService {
 
 	ApiDefaultResponse addSportField(SportField sportField);
-	
+
+	ApiDefaultResponse getNearbySportFields(Double longitude, Double latitude);
+
 }

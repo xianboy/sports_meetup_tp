@@ -1,4 +1,4 @@
-package com.sports.meetup.field.domain;
+/*package com.sports.meetup.field.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -90,3 +90,4 @@ public class GPSLocation {
 	
 	
 }
+*/

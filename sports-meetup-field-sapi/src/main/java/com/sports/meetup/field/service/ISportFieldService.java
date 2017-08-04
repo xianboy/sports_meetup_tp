@@ -10,4 +10,6 @@ public interface ISportFieldService {
 
 	SportField saveSportField(SportField sportField);
 
+	void getNearbySportFields(Double longitude, Double latitude);
+
 }

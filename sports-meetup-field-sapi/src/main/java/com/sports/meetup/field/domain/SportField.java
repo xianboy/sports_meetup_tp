@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,35 +18,62 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 public class SportField {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	//场地地址
+
+	// 场地地址
+	@NotBlank(message="详细地址不能为空.")
 	private String fieldLocation;
-	
-	//场地类型
+
+	// 场地类型
+	@NotBlank(message="场地类型不能为空.")
 	private String fieldType;
-	
-	//场地管理人电话
+
+	// 场地管理人电话
 	private String adminPhone;
-	
-	//场地GPS信息 
-	private Long gpsLocationId;
-	
-	//场地图片信息
+
+	// 场地图片信息
 	private String picsOfField;
-	
-	//是否审核通过
+
+	// 是否审核通过
 	private Boolean isApproved;
+
+	// 经度
+	private Double longitude;
 	
+	// 纬度
+	private Double latitude;
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
 
 	public SportField() {
 		super();
 	}
 
-	
 	public Long getId() {
 		return id;
 	}
@@ -53,20 +82,12 @@ public class SportField {
 		this.id = id;
 	}
 
-	public void setGpsLocation(Long gpsLocationId) {
-		this.gpsLocationId = gpsLocationId;
-	}
-
 	public Boolean getIsApproved() {
 		return isApproved;
 	}
 
 	public void setIsApproved(Boolean isApproved) {
 		this.isApproved = isApproved;
-	}
-
-	public void setGpsLocationId(Long gpsLocationId) {
-		this.gpsLocationId = gpsLocationId;
 	}
 
 	public String getFieldLocation() {
@@ -101,66 +122,18 @@ public class SportField {
 		this.picsOfField = picsOfField;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((adminPhone == null) ? 0 : adminPhone.hashCode());
-		result = prime * result + ((fieldLocation == null) ? 0 : fieldLocation.hashCode());
-		result = prime * result + ((fieldType == null) ? 0 : fieldType.hashCode());
-		result = prime * result + ((gpsLocationId == null) ? 0 : gpsLocationId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((isApproved == null) ? 0 : isApproved.hashCode());
-		result = prime * result + ((picsOfField == null) ? 0 : picsOfField.hashCode());
-		return result;
+	public SportField(Long id, String fieldLocation, String fieldType, String adminPhone, String picsOfField,
+			Boolean isApproved, Double longitude, Double latitude) {
+		super();
+		this.id = id;
+		this.fieldLocation = fieldLocation;
+		this.fieldType = fieldType;
+		this.adminPhone = adminPhone;
+		this.picsOfField = picsOfField;
+		this.isApproved = isApproved;
+		this.longitude = longitude;
+		this.latitude = latitude;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SportField other = (SportField) obj;
-		if (adminPhone == null) {
-			if (other.adminPhone != null)
-				return false;
-		} else if (!adminPhone.equals(other.adminPhone))
-			return false;
-		if (fieldLocation == null) {
-			if (other.fieldLocation != null)
-				return false;
-		} else if (!fieldLocation.equals(other.fieldLocation))
-			return false;
-		if (fieldType == null) {
-			if (other.fieldType != null)
-				return false;
-		} else if (!fieldType.equals(other.fieldType))
-			return false;
-		if (gpsLocationId == null) {
-			if (other.gpsLocationId != null)
-				return false;
-		} else if (!gpsLocationId.equals(other.gpsLocationId))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (isApproved == null) {
-			if (other.isApproved != null)
-				return false;
-		} else if (!isApproved.equals(other.isApproved))
-			return false;
-		if (picsOfField == null) {
-			if (other.picsOfField != null)
-				return false;
-		} else if (!picsOfField.equals(other.picsOfField))
-			return false;
-		return true;
-	}
 
-	
 }

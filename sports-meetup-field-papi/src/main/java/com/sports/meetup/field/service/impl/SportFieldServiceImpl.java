@@ -1,20 +1,19 @@
 package com.sports.meetup.field.service.impl;
 
-import static org.mockito.Matchers.contains;
-
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import com.sports.common.constant.ConstantFields;
@@ -33,7 +32,7 @@ public class SportFieldServiceImpl implements ISportFieldService{
 	@Override
 	public ApiDefaultResponse addSportField(SportField sportField) {
 		HttpHeaders headers = new HttpHeaders();
-		ApiDefaultResponse apiDefaultResponse = null;
+		ApiDefaultResponse apiDefaultResponse = new ApiDefaultResponse();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		HttpEntity<SportField> requestEntity = new HttpEntity<SportField>(sportField, headers);
 		String url = "http://localhost:8085/sports-meetup-sapi/sportfields/saveSportField";
@@ -60,6 +59,21 @@ public class SportFieldServiceImpl implements ISportFieldService{
 				ConstantFields.getSuccessResponseMsg(), sField);
 		
 		return apiDefaultResponse;
+	}
+
+	//获取附近的场馆
+	@Override
+	public ApiDefaultResponse getNearbySportFields(Double longitude, Double latitude) {
+		/*HttpHeaders headers = new HttpHeaders();
+		ApiDefaultResponse apiDefaultResponse = new ApiDefaultResponse();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<SportField> requestEntity = new HttpEntity<SportField>(sportField, headers);*/
+		String url = "http://localhost:8085/sports-meetup-sapi/sportfields/findNearbySportFields";
+		
+		MultiValueMap<String, Double> params = new LinkedMultiValueMap<String, Double>();
+		ResponseEntity<SportField[]> responseEntity = restTemplate.getForEntity(url, SportField[].class, params);
+		
+		return null;
 	}
 	
 }
