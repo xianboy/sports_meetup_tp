@@ -26,7 +26,7 @@ public class SportField {
 	private String adminPhone;
 
 	// 场地图片信息
-	private String picsOfField;
+	private String[] picsOfField;
 
 	// 是否审核通过
 	private Boolean isApproved;
@@ -104,26 +104,15 @@ public class SportField {
 		this.adminPhone = adminPhone;
 	}
 
-	public String getPicsOfField() {
+	public String[] getPicsOfField() {
 		return picsOfField;
 	}
 
-	public void setPicsOfField(String picsOfField) {
+	public void setPicsOfField(String[] picsOfField) {
 		this.picsOfField = picsOfField;
 	}
 
-	public SportField(Long id, String fieldLocation, String fieldType, String adminPhone, String picsOfField,
-			Boolean isApproved, Double longitude, Double latitude) {
-		super();
-		this.id = id;
-		this.fieldLocation = fieldLocation;
-		this.fieldType = fieldType;
-		this.adminPhone = adminPhone;
-		this.picsOfField = picsOfField;
-		this.isApproved = isApproved;
-		this.longitude = longitude;
-		this.latitude = latitude;
-	}
+	
 
 
 }

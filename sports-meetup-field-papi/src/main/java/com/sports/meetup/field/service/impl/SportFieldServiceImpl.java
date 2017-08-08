@@ -2,13 +2,15 @@ package com.sports.meetup.field.service.impl;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -55,8 +57,8 @@ public class SportFieldServiceImpl implements ISportFieldService{
 			apiDefaultResponse.setMessage(e.getMessage());
 			return apiDefaultResponse;
 		}
-		apiDefaultResponse = new ApiDefaultResponse(ConstantFields.getSuccessResponseCode(),
-				ConstantFields.getSuccessResponseMsg(), sField);
+		apiDefaultResponse = new ApiDefaultResponse(ConstantFields.getSuccessCode(),
+				ConstantFields.getSuccessMsg(), sField);
 		
 		return apiDefaultResponse;
 	}
@@ -64,16 +66,23 @@ public class SportFieldServiceImpl implements ISportFieldService{
 	//获取附近的场馆
 	@Override
 	public ApiDefaultResponse getNearbySportFields(Double longitude, Double latitude) {
+		ApiDefaultResponse response = null;
 		/*HttpHeaders headers = new HttpHeaders();
 		ApiDefaultResponse apiDefaultResponse = new ApiDefaultResponse();
 		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 		HttpEntity<SportField> requestEntity = new HttpEntity<SportField>(sportField, headers);*/
 		String url = "http://localhost:8085/sports-meetup-sapi/sportfields/findNearbySportFields";
-		
+		SportField[] sportFields = null;
 		MultiValueMap<String, Double> params = new LinkedMultiValueMap<String, Double>();
 		ResponseEntity<SportField[]> responseEntity = restTemplate.getForEntity(url, SportField[].class, params);
-		
-		return null;
+		if(HttpStatus.OK.equals(responseEntity.getStatusCode())) {
+			sportFields = responseEntity.getBody();
+			response = new ApiDefaultResponse(ConstantFields.getSuccessCode(), ConstantFields.getSuccessMsg(), Arrays.asList(sportFields));
+			return response;
+		}
+		response.setResponseCode(ConstantFields.getSapiError509Code());
+		response.setMessage(ConstantFields.getSapiError509Msg());
+		return response;
 	}
 	
 }
