@@ -1,4 +1,15 @@
-sapi:
-  config: 
-    findUserByPhoneNumberUrl: http://localhost:8082/sports-meetup-sapi/users/getUser/{phoneNumbre}
+config:
+  findNearbySportFieldsUrl: http://localhost:8085/sports-meetup-sapi/sportfields/findNearbySportFields
+  findNearFieldByMatchtypeUrl: http://localhost:8085/sports-meetup-sapi/sportfields/findNearbySportFields
+  addSportFieldUrl: http://localhost:8085/sports-meetup-sapi/sportfields/saveSportField
+  findNearFieldsHaveMatches: http://localhost:8085/sports-meetup-sapi/sportfields/findNearFieldsHaveMatches
+  findSportFieldByIdUrl: http://localhost:8085/sports-meetup-sapi/sportfields/
+  findNearFieldsByMatchtypeUrl: http://localhost:8085/sports-meetup-sapi/NearSportfields/findNearbySportFields
+
+  accessType: http://
+  fieldPicsStorePath: webpics/
+  usingArea: xi'an
+  localIp: 112.74.45.247
+  appPort: 8084
+  
   

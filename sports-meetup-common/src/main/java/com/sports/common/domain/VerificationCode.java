@@ -2,9 +2,7 @@ package com.sports.common.domain;
 
 import java.sql.Timestamp;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class VerificationCode {
 	
 	private String phoneNumber;

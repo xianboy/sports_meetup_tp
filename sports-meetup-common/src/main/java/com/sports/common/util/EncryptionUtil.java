@@ -30,11 +30,11 @@ public class EncryptionUtil {
 	    }  
 	      
 	    /** 
-	     * 对字符串进行加密，返回BASE64的加密字符串 
-	     * <功能详细描述> 
+	     * 瀵瑰瓧绗︿覆杩涜鍔犲瘑锛岃繑鍥濨ASE64鐨勫姞瀵嗗瓧绗︿覆 
+	     * <鍔熻兘璇︾粏鎻忚堪> 
 	     * @param str 
 	     * @return 
-	     * @see [类、类#方法、类#成员] 
+	     * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳] 
 	     */  
 	    public static String getEncryptString(String str){  
 	        BASE64Encoder base64Encoder = new BASE64Encoder();  
@@ -55,11 +55,11 @@ public class EncryptionUtil {
 	    }  
 	      
 	    /** 
-	     * 对BASE64加密字符串进行解密 
-	     * <功能详细描述> 
+	     * 瀵笲ASE64鍔犲瘑瀛楃涓茶繘琛岃В瀵� 
+	     * <鍔熻兘璇︾粏鎻忚堪> 
 	     * @param str 
 	     * @return 
-	     * @see [类、类#方法、类#成员] 
+	     * @see [绫汇�佺被#鏂规硶銆佺被#鎴愬憳] 
 	     */  
 	    public static String getDecryptString(String str){  
 	        BASE64Decoder base64Decoder = new BASE64Decoder();  
@@ -77,5 +77,5 @@ public class EncryptionUtil {
 	        }  
 	          
 	    }
-	  
+	    
 }

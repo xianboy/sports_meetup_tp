@@ -1,8 +1,6 @@
 package com.sports.common.domain;
 
-import org.springframework.stereotype.Component;
 
-@Component
 public class ApiDefaultResponse {
 	
 	private String responseCode;
@@ -10,6 +8,10 @@ public class ApiDefaultResponse {
 	private Object responseBody;
 	
 	
+	
+	public ApiDefaultResponse() {
+		super();
+	}
 	public ApiDefaultResponse(String responseCode, String message) {
 		super();
 		this.responseCode = responseCode;

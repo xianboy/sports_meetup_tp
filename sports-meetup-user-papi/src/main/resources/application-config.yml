@@ -1,4 +1,7 @@
 sapi:
   config: 
     findUserByPhoneNumberUrl: http://localhost:8082/sports-meetup-sapi/users/getUser/{phoneNumbre}
-  
+    addHelpMsgUrl: http://localhost:8082/sports-meetup-sapi/users/user/comments
+    updateUserUrl: http://localhost:8082/sports-meetup-sapi/users/user
+    testUserUrl: http://localhost:8082/sports-meetup-sapi/users/test
+    updateTestUrl: http://localhost:8082/sports-meetup-sapi/users/testSave

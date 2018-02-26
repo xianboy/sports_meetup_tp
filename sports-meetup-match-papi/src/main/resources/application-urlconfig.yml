@@ -1,0 +1,17 @@
+config:
+  saveMatchUrl: http://localhost:8087/sports-meetup-sapi/matches/saveMatch
+  joinMatchUrl: http://localhost:8087/sports-meetup-sapi/matches/joinMatch
+  MatchesByCreatorIdUrl: http://localhost:8087/sports-meetup-sapi/matches/getMatchesByCreatorId/
+  OldMatchesByCreatorIdUrl: http://localhost:8087/sports-meetup-sapi/matches/getOldMatchesByCreatorId/
+  nearbyMatchesUrl: http://localhost:8087/sports-meetup-sapi/matches/getNearbyMatches/
+  findMatchByIdUrl: http://localhost:8087/sports-meetup-sapi/matches/match/
+  findMatchesByFieldIdUrl: http://localhost:8087/sports-meetup-sapi/matches/getMatchesByFieldId/
+  ApplyMatchesUrl: http://localhost:8087/sports-meetup-sapi/matches/getMyMatches/
+  OldApplyMatchesUrl: http://localhost:8087/sports-meetup-sapi/matches/getMyOldMatches/
+  MatchAndAddressUrl: http://localhost:8087/sports-meetup-sapi/matches/matchAndAddress/
+  CreatedUserInfoUrl: http://localhost:8087/sports-meetup-sapi/matches/CreatedUserInfo/
+  AppliedUserInfoUrl: http://localhost:8087/sports-meetup-sapi/matches/appliedUserInfo/
+  isJoinedMatchesUrl: http://localhost:8087/sports-meetup-sapi/matches/isJoinedMatches
+  findMatchinfoByIdUrl: http://localhost:8087/sports-meetup-sapi/matches/findMatchinfoById/
+  findSportFieldByIdUrl: http://localhost:8084/sports-meetup-papi/sportfields/
+  nearMatchesbyFieldTypeUrl: http://localhost:8087/sports-meetup-sapi/nearMatches/getNearbyMatches/
